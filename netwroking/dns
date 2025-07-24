@@ -30,3 +30,17 @@ Note: This whole process usually happens in milliseconds.
 
 What typeo of Records are there
 ===============================
+
+Record Type	Description
+------------------------
+A	      Maps a domain to an IPv4 address. Example: example.com → 93.184.216.34
+AAAA	  Maps a domain to an IPv6 address.
+CNAME	  Alias name. Maps one domain to another. Example: www.example.com → example.com
+MX	      Mail exchange. Specifies mail server for a domain.
+TXT	      Stores text data. Used for SPF, DKIM, domain verification, etc.
+NS	      Nameserver. Shows which servers are authoritative for this domain.
+SOA	      Start of Authority. Provides info about the domain — like admin email, version, etc.
+PTR	      Pointer record. Used for reverse DNS lookup (IP → domain).
+SRV	      Service locator. Used to define services like SIP, XMPP, etc.
+CAA	      Certificate Authority Authorization. Controls which CAs can issue SSL certs for the domain.
+
