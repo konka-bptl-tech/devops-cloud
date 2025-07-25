@@ -1,2 +1,2 @@
-# devops-cloud
-![flow.drawio.svg]
+# DevOps Cloud
+![DevOps Flow](flow.drawio.svg)
