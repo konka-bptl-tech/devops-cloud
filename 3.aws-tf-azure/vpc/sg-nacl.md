@@ -6,11 +6,12 @@ A port is simply a number in networking that's used to identify a specific servi
 | 192.168.1.100 | 22   | SSH            |
 | 192.168.1.100 | 80   | Web server     |
 | 192.168.1.100 | 3306 | MySQL database |
+
 Even though all services run on the same IP, the port number helps route the traffic to the correct application.
+
 # Protocols
 A protocol is a set of rules that defines how data is transmitted between devices in a network.
 ## 🔀 **TCP vs UDP**
-
 | Feature               | **TCP** (Transmission Control Protocol) | **UDP** (User Datagram Protocol)   |
 | --------------------- | --------------------------------------- | ---------------------------------- |
 | 🔗 **Connection**     | Connection-oriented                     | Connectionless                     |
