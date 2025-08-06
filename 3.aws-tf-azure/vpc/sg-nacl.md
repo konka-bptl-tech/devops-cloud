@@ -1,5 +1,6 @@
 # Ports
 A port is simply a number in networking that's used to identify a specific service or process running on a machine
+
 **Example**
 | IP Address    | Port | Service        |
 | ------------- | ---- | -------------- |
