@@ -197,8 +197,121 @@ Perfect Konka! Let's simplify **Ingress vs Egress** (Inbound vs Outbound) — es
 - If originating traffic is allow automatically response traffic is allowed
 # Ephemeral ports
 
-# Network Access Controls List[NACL] 
+Ephemeral ports are temporary port numbers assigned automatically by the operating system to the client side of a network connection.
+
+# Network Access Controls List[NACL]
+
+> A **Network ACL** is a **stateless firewall** in AWS that controls **inbound and outbound traffic** **at the subnet level** in your VPC.
+
+It defines **allow or deny rules** based on:
+
+* Source/Destination IP
+* Port number
+* Protocol (TCP, UDP, etc.)
+
+---
+
+## 🧱 Key Characteristics
+
+| Feature             | Description                                   |
+| ------------------- | --------------------------------------------- |
+| 🔁 **Stateless**    | Return traffic must be **explicitly allowed** |
+| 📍 **Subnet-level** | Applies to **all resources in the subnet**    |
+| ➕➖ **Allow & Deny** | Can **allow or deny** traffic                 |
+| ⬆️ **Rule Order**   | Evaluated by **rule number** (lowest first)   |
+| 🌐 **Applies to**   | EC2, RDS, etc. inside subnets                 |
+
+---
+
+## 📥 Example Rule Set
+
+| Rule # | Type    | Protocol | Port Range | Source/Dest | Action |
+| ------ | ------- | -------- | ---------- | ----------- | ------ |
+| 100    | Inbound | TCP      | 22         | 0.0.0.0/0   | ALLOW  |
+| 110    | Inbound | TCP      | 80         | 0.0.0.0/0   | ALLOW  |
+| \*     | Inbound | ALL      | ALL        | ALL         | DENY   |
+
+> This allows SSH & HTTP but blocks everything else.
+
+---
+
+## 🔄 Stateless = Must Allow Both Ways
+
+If you allow incoming traffic on port 80, you **must also allow outgoing return traffic** using ephemeral ports (e.g., 1024–65535), or it won’t work.
+
+---
+
+## ✅ Common Use Case
+
+> **Restrict public access to private subnets**
+> You can block all inbound traffic to private subnets using NACLs, even if a security group allows it — extra layer of control.
+
+---
+
+## 🎯 Interview One-Liner:
+
+> **"A Network ACL is a stateless firewall in AWS that controls traffic at the subnet level using numbered allow/deny rules for both inbound and outbound directions."**
 
 # Security Groups
-1. Firewalls at instance level
-2. 
+Absolutely Konka! Here's a clean breakdown of **Security Groups** in AWS — short, simple, and **interview-ready** ✅
+
+---
+
+## 🔐 What is a **Security Group**?
+
+> A **Security Group** in AWS acts as a **virtual firewall** that controls **inbound and outbound traffic** **at the instance level** (like EC2, RDS, etc.).
+
+---
+
+## 🧱 Key Characteristics
+
+| Feature               | Description                                         |
+| --------------------- | --------------------------------------------------- |
+| 🔁 **Stateful**       | Return traffic is **automatically allowed**         |
+| 🎯 **Instance-level** | Applied **directly to instances**, not subnets      |
+| ➕ **Only allows**     | You can **only ALLOW** traffic, no DENY             |
+| 📄 **Rules based on** | Protocol, Port range, Source/Destination (IP or SG) |
+| 👥 **Multiple SGs**   | An instance can have **multiple security groups**   |
+
+---
+
+## 📥 Example Rules
+
+### ✅ Inbound (for a web server)
+
+| Type | Protocol | Port | Source    | Description  |
+| ---- | -------- | ---- | --------- | ------------ |
+| SSH  | TCP      | 22   | Your IP   | Admin access |
+| HTTP | TCP      | 80   | 0.0.0.0/0 | Public web   |
+
+### ✅ Outbound (default)
+
+| Type | Protocol | Port | Destination |
+| ---- | -------- | ---- | ----------- |
+| ALL  | ALL      | ALL  | 0.0.0.0/0   |
+
+---
+
+## 🔁 Stateful Means:
+
+* If you allow **inbound on port 80**, **outbound response is auto-allowed**
+* You don’t need to define outbound rules to allow the response
+
+---
+
+## 🧪 Real Example:
+
+> You launch an EC2 instance and attach a security group:
+>
+> * Inbound: Allow SSH from your IP (`port 22`)
+> * Outbound: All traffic allowed (default)
+>
+> Now you can SSH into it, and responses work because **SG is stateful**.
+
+---
+
+## 🧠 One-liner for interview:
+
+> **"A security group is a stateful, instance-level virtual firewall in AWS that controls allowed inbound and outbound traffic using rules based on ports, protocols, and IPs."**
+
+---
